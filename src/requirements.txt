@@ -1,1 +1,1 @@
-git+https://github.com/cesar-benjamin/geonode.git@4.1.x#egg=GeoNode
+git+https://github.com/anvcc-inecc/geonode-anvcc.git@4.1.x.anvcc#egg=GeoNode
