@@ -66,21 +66,6 @@ location /jenkins {
     proxy_pass http://$upstream;
 }
 
-# Frontend
-location / {
-  alias /mnt/volumes/statics/frontend/;
-  index index.html;
-  try_files $uri $uri/ /index.html;
-
-  location ~* \.(?:html|js|jpg|jpeg|gif|png|css|tgz|gz|rar|bz2|doc|pdf|ppt|tar|wav|bmp|ttf|rtf|swf|ico|flv|txt|woff|woff2|svg|xml)$ {
-      gzip_static always;
-      expires 30d;
-      access_log off;
-      add_header Pragma "public";
-      add_header Cache-Control "max-age=31536000, public";
-  }
-}
-
 # GeoNode
 location /geonode/static/ {
   alias /mnt/volumes/statics/static/;
@@ -157,4 +142,19 @@ location /geonode/ {
   }
   uwsgi_param UWSGI_SCRIPT geonode;
   uwsgi_param SCRIPT_NAME /geonode;
+}
+
+# Frontend
+location / {
+  alias /mnt/volumes/statics/frontend/;
+  index index.html;
+  try_files $uri $uri/ /index.html;
+
+  location ~* \.(?:html|js|jpg|jpeg|gif|png|css|tgz|gz|rar|bz2|doc|pdf|ppt|tar|wav|bmp|ttf|rtf|swf|ico|flv|txt|woff|woff2|svg|xml)$ {
+      gzip_static always;
+      expires 30d;
+      access_log off;
+      add_header Pragma "public";
+      add_header Cache-Control "max-age=31536000, public";
+  }
 }
