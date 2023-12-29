@@ -155,4 +155,6 @@ location /geonode/ {
       add_header Pragma "public";
       add_header Cache-Control "max-age=31536000, public";
   }
+  uwsgi_param UWSGI_SCRIPT geonode;
+  uwsgi_param SCRIPT_NAME /geonode;
 }
