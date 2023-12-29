@@ -66,8 +66,23 @@ location /jenkins {
     proxy_pass http://$upstream;
 }
 
+# Frontend
+location / {
+  alias /mnt/volumes/statics/frontend/;
+  index index.html;
+  try_files $uri $uri/ /index.html;
+
+  location ~* \.(?:html|js|jpg|jpeg|gif|png|css|tgz|gz|rar|bz2|doc|pdf|ppt|tar|wav|bmp|ttf|rtf|swf|ico|flv|txt|woff|woff2|svg|xml)$ {
+      gzip_static always;
+      expires 30d;
+      access_log off;
+      add_header Pragma "public";
+      add_header Cache-Control "max-age=31536000, public";
+  }
+}
+
 # GeoNode
-location /static/ {
+location /geonode/static/ {
   alias /mnt/volumes/statics/static/;
 
   location ~* \.(?:html|js|jpg|jpeg|gif|png|css|tgz|gz|rar|bz2|doc|pdf|ppt|tar|wav|bmp|ttf|rtf|swf|ico|flv|txt|woff|woff2|svg|xml)$ {
@@ -79,7 +94,7 @@ location /static/ {
   }
 }
 
-location /uploaded/ {
+location /geonode/uploaded/ {
   alias /mnt/volumes/statics/uploaded/;
 
   location ~* \.(?:html|js|jpg|jpeg|gif|png|css|tgz|gz|rar|bz2|doc|pdf|ppt|tar|wav|bmp|ttf|rtf|swf|ico|flv|txt|woff|woff2|svg|xml)$ {
@@ -91,7 +106,7 @@ location /uploaded/ {
   }
 }
 
-location / {
+location /geonode/ {
   # Using a variable is a trick to let Nginx start even if upstream host is not up yet
   # (see https://sandro-keil.de/blog/2017/07/24/let-nginx-start-if-upstream-host-is-unavailable-or-down/)
   set $upstream django:8000;
