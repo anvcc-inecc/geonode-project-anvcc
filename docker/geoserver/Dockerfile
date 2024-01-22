@@ -97,7 +97,7 @@ COPY multidump-alt.sh /usr/local/tomcat/tmp
 
 RUN apt-get update \
     && apt-get install -y procps less \
-    && apt-get install -y python3 python3-pip python3-dev \
+    && apt-get install -y python3 python3-pip python3-dev vim \
     && chmod +x /usr/local/tomcat/tmp/set_geoserver_auth.sh \
     && chmod +x /usr/local/tomcat/tmp/setup_auth.sh \
     && chmod +x /usr/local/tomcat/tmp/entrypoint.sh \
