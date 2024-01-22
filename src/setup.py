@@ -44,7 +44,7 @@ setup(
     url='https://github.com/{{ project_name }}/{{ project_name }}',
     packages=find_packages(),
     dependency_links=[
-        "git+https://github.com/anvcc-inecc/geonode-anvcc.git#egg=geonode"
+        "git+https://github.com/anvcc-inecc/geonode-anvcc.git@4.1.x.anvcc#egg=GeoNode"
     ],
     include_package_data=True,
 )
