@@ -85,8 +85,6 @@ cp ${GEOSERVER_DATA_DIR}/security/filter/geonode-oauth2/config.xml ${GEOSERVER_D
 # run the setting script for geonode-oauth2
 /usr/local/tomcat/tmp/set_geoserver_auth.sh ${GEOSERVER_DATA_DIR}/security/filter/geonode-oauth2/config.xml ${GEOSERVER_DATA_DIR}/security/filter/geonode-oauth2/ "${TAGNAME[@]}" > /dev/null 2>&1
 
-sed -i 's/geonode\/geoserver\/index.html/geoserver\/index.html/' /geoserver_data/data/security/filter/geonode-oauth2/config.xml
-
 # set global tagname
 TAGNAME=( "proxyBaseUrl" )
 
@@ -100,6 +98,9 @@ sed -i -e 's/localhost/rabbitmq/g' ${GEOSERVER_DATA_DIR}/notifier/notifier.xml
 
 # exclude wrong dependencies
 sed -i -e 's/xom-\*\.jar/xom-\*\.jar,bcprov\*\.jar/g' /usr/local/tomcat/conf/catalina.properties
+
+#fix redirect
+sed -i 's/geonode\/geoserver\/index.html/geoserver\/index.html/' /geoserver_data/data/security/filter/geonode-oauth2/config.xml
 
 # J2 templating for this docker image we should also do it for other configuration files in /usr/local/tomcat/tmp
 
