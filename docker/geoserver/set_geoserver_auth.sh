@@ -70,10 +70,10 @@ do
             fi;;
         accessTokenUri | checkTokenEndpointUrl | baseUrl )
             echo "DEBUG: Editing '$auth_conf_source' for tagname <$i> and replacing its value with '$NGINX_BASE_URL'"
-            newvalue=`echo -ne "$tagvalue" | sed -re "s@http://localhost(:8.*0)@$NGINX_BASE_URL@"`;;
+            newvalue=`echo -ne "$tagvalue" | sed -re "s@http://localhost(:8.*0)@$SUBSTITUTION_URL@"`;;
         redirectUri )
             echo "DEBUG: Editing '$auth_conf_source' for tagname <$i> and replacing its value with '$SUBSTITUTION_URL'"
-            newvalue=`echo -ne "$tagvalue" | sed -re "s@http://localhost(:8.*0)/geonode@$NGINX_BASE_URL@"`;;
+            newvalue=`echo -ne "$tagvalue" | sed -re "s@http://localhost(:8.*0)@$SUBSTITUTION_URL@"`;;
         userAuthorizationUri | logoutUri )
             echo "DEBUG: Editing '$auth_conf_source' for tagname <$i> and replacing its value with '$SUBSTITUTION_URL'"
             newvalue=`echo -ne "$tagvalue" | sed -re "s@http://localhost(:8.*0)@$SUBSTITUTION_URL@"`;;
@@ -89,6 +89,8 @@ done
 # Writing our changes back to the original file ($auth_conf_source)
 # no longer needed
 # mv $temp_file $auth_conf_source
+
+sed -i 's/geonode\/geoserver\/index.html/geoserver\/index.html/' /geoserver_data/data/security/filter/geonode-oauth2/config.xml
 
 echo "DEBUG: Finished... [Ok] --- Final xml file is \n"
 cat "$auth_conf_source"

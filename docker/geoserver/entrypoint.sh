@@ -85,6 +85,8 @@ cp ${GEOSERVER_DATA_DIR}/security/filter/geonode-oauth2/config.xml ${GEOSERVER_D
 # run the setting script for geonode-oauth2
 /usr/local/tomcat/tmp/set_geoserver_auth.sh ${GEOSERVER_DATA_DIR}/security/filter/geonode-oauth2/config.xml ${GEOSERVER_DATA_DIR}/security/filter/geonode-oauth2/ "${TAGNAME[@]}" > /dev/null 2>&1
 
+sed -i 's/geonode\/geoserver\/index.html/geoserver\/index.html/' /geoserver_data/data/security/filter/geonode-oauth2/config.xml
+
 # set global tagname
 TAGNAME=( "proxyBaseUrl" )
 
